@@ -4,7 +4,7 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Gravity", sf::Style::Close);
 
-	while (window.isOpen)
+	while (window.isOpen())
 	{
 		sf::Event event;
 		while (window.pollEvent(event))
