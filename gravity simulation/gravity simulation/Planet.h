@@ -5,7 +5,7 @@
 class Planet
 {
 public:
-	Planet(double size, sf::Vector2f position);
+	Planet(double radius, sf::Vector2f position, int32_t randomColorSeed);
 	sf::CircleShape getShape();
 private:
 	double mass;
