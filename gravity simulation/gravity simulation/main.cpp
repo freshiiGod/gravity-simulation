@@ -38,7 +38,28 @@ int main()
 				planets.push_back(newPlanet);
 			}
 		}
-		system("cls");
+
+
+		//loop through each existing planet and check
+		//if that planet is colliding with any other planet.
+		//if a collision has occured, destroy both collided planets.
+		for (int i{ 0 }; i < numberOfPlanets; i++)
+		{
+			for (int j{ 0 }; j < numberOfPlanets; j++)
+			{
+				if (j != i)
+				{
+					if (planets[i].checkCollision(planets[j]))
+					{
+						planets.erase(planets.begin() + i);
+						planets.erase(planets.begin() + j - 1);
+						numberOfPlanets -= 2;
+						break;
+					}
+				}
+			}
+		}
+
 		//clear window with black color
 		window.clear(sf::Color::Black);
 
