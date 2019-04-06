@@ -7,7 +7,7 @@ Planet::Planet(double radius, sf::Vector2f position, int32_t randomColorSeed)
 	planet.setPosition(position);
 	planet.setOrigin(sf::Vector2f(radius, radius));
 	planet.setRadius(radius);
-	mass = radius;
+	mass = 50;
 
 	srand(randomColorSeed);
 	//random color planet
@@ -17,6 +17,7 @@ Planet::Planet(double radius, sf::Vector2f position, int32_t randomColorSeed)
 	sf::Color planetColor(r,g,b);
 	planet.setFillColor(planetColor);
 }
+Planet::~Planet(){}
 
 bool Planet::checkCollision(Planet otherPlanet)
 {
@@ -28,6 +29,40 @@ bool Planet::checkCollision(Planet otherPlanet)
 		return true;
 	else
 		return false;
+}
+
+void Planet::updateVelocity(Planet otherPlanet)
+{
+	const double gravityConst = 6.673;
+	//get distance
+	double aSquared = pow(otherPlanet.getShape().getPosition().y - planet.getPosition().y, 2);
+	double bSquared = pow(otherPlanet.getShape().getPosition().x - planet.getPosition().x, 2);
+	double distance = std::sqrt(aSquared + bSquared);
+
+	velocity = (gravityConst * mass * otherPlanet.getMass()) / (distance * distance);
+}
+
+//planet movement
+void Planet::moveYUp()
+{
+	planet.move(0, -velocity);
+}
+void Planet::moveYDown()
+{
+	planet.move(0, velocity);
+}
+void Planet::moveXLeft()
+{
+	planet.move(-velocity, 0);
+}
+void Planet::moveXRight()
+{
+	planet.move(velocity, 0);
+}
+
+double Planet::getMass()
+{
+	return mass;
 }
 
 sf::CircleShape Planet::getShape()

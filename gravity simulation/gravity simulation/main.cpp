@@ -39,16 +39,28 @@ int main()
 			}
 		}
 
-
-		//loop through each existing planet and check
-		//if that planet is colliding with any other planet.
-		//if a collision has occured, destroy both collided planets.
+		system("cls");
+		//loop through each existing planet
 		for (int i{ 0 }; i < numberOfPlanets; i++)
 		{
+			//loop through each planet except current planet
+			//checking things in respect to current planet
 			for (int j{ 0 }; j < numberOfPlanets; j++)
 			{
 				if (j != i)
 				{
+					//update planets position based on it's velocity
+					planets[i].updateVelocity(planets[j]);
+					if (planets[i].getShape().getPosition().y > planets[j].getShape().getPosition().y)
+						planets[i].moveYUp();
+					if (planets[i].getShape().getPosition().y < planets[j].getShape().getPosition().y)
+						planets[i].moveYDown();
+					if (planets[i].getShape().getPosition().x > planets[j].getShape().getPosition().x)
+						planets[i].moveXLeft();
+					if (planets[i].getShape().getPosition().x < planets[j].getShape().getPosition().x)
+						planets[i].moveXRight();
+
+					//if planets are colliding, destroy both
 					if (planets[i].checkCollision(planets[j]))
 					{
 						planets.erase(planets.begin() + i);
@@ -59,6 +71,8 @@ int main()
 				}
 			}
 		}
+
+		std::cout << numberOfPlanets << std::endl;
 
 		//clear window with black color
 		window.clear(sf::Color::Black);
