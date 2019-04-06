@@ -10,9 +10,9 @@ Planet::Planet(double radius, sf::Vector2f position, int32_t randomColorSeed)
 
 	srand(randomColorSeed);
 	//random color planet
-	int r = std::rand() % 200;
-	int g = std::rand() % 200;
-	int b = std::rand() % 200;
+	int r = std::rand() % 80 + 200;
+	int g = std::rand() % 80 + 200;
+	int b = std::rand() % 80 + 200;
 	sf::Color planetColor(r,g,b);
 	planet.setFillColor(planetColor);
 }

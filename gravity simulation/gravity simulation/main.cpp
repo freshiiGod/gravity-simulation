@@ -31,7 +31,7 @@ int main()
 				numberOfPlanets++;
 
 				//create new planet object and copy into planets vector
-				Planet newPlanet(10,
+				Planet newPlanet(20,
 					sf::Vector2f(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y),
 					clock.getElapsedTime().asMilliseconds());
 
