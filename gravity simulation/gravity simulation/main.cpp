@@ -9,7 +9,6 @@ int main()
 
 	//clock for seeding random planet color
 	sf::Clock clock;
-	clock.getElapsedTime().asMilliseconds();
 
 	//holds number of planets to decide planet array length
 	int numberOfPlanets{ 0 };
@@ -31,7 +30,7 @@ int main()
 				numberOfPlanets++;
 
 				//create new planet object and copy into planets vector
-				Planet newPlanet(20,
+				Planet newPlanet(40,
 					sf::Vector2f(sf::Mouse::getPosition(window).x,sf::Mouse::getPosition(window).y),
 					clock.getElapsedTime().asMilliseconds());
 
@@ -39,7 +38,6 @@ int main()
 			}
 		}
 
-		system("cls");
 		//loop through each existing planet
 		for (int i{ 0 }; i < numberOfPlanets; i++)
 		{
@@ -60,17 +58,27 @@ int main()
 					if (planets[i].getShape().getPosition().x < planets[j].getShape().getPosition().x)
 						planets[i].moveXRight();
 
-					//if planets are colliding, destroy both
+					//if planets are colliding, mark them to be destroyed
 					if (planets[i].checkCollision(planets[j]))
 					{
-						planets.erase(planets.begin() + i);
-						planets.erase(planets.begin() + j - 1);
-						numberOfPlanets -= 2;
-						break;
+						planets[i].setCollidedTrue();
+						planets[j].setCollidedTrue();
 					}
 				}
 			}
 		}
+
+		//destroy marked planets
+		for (int i = 0; i < numberOfPlanets; i++)
+		{
+			if (planets[i].hasCollided())
+			{
+				planets.erase(planets.begin() + i);
+				numberOfPlanets--;
+			}
+		}
+
+		system("cls");
 
 		std::cout << numberOfPlanets << std::endl;
 

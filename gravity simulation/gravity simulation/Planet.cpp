@@ -34,7 +34,7 @@ bool Planet::checkCollision(Planet otherPlanet)
 void Planet::updateVelocity(Planet otherPlanet)
 {
 	const double gravityConst = 6.673;
-	//get distance
+	//get distance with a^2 + b^2 = c^2
 	double aSquared = pow(otherPlanet.getShape().getPosition().y - planet.getPosition().y, 2);
 	double bSquared = pow(otherPlanet.getShape().getPosition().x - planet.getPosition().x, 2);
 	double distance = std::sqrt(aSquared + bSquared);
@@ -42,22 +42,35 @@ void Planet::updateVelocity(Planet otherPlanet)
 	velocity = (gravityConst * mass * otherPlanet.getMass()) / (distance * distance);
 }
 
-//planet movement
+//movement
 void Planet::moveYUp()
 {
 	planet.move(0, -velocity);
 }
+
 void Planet::moveYDown()
 {
 	planet.move(0, velocity);
 }
+
 void Planet::moveXLeft()
 {
 	planet.move(-velocity, 0);
 }
+
 void Planet::moveXRight()
 {
 	planet.move(velocity, 0);
+}
+
+void Planet::setCollidedTrue()
+{
+	collided = true;
+}
+
+bool Planet::hasCollided()
+{
+	return collided;
 }
 
 double Planet::getMass()

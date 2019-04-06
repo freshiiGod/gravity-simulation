@@ -9,6 +9,11 @@ public:
 	~Planet();
 	bool checkCollision(Planet otherPlanet);
 	void updateVelocity(Planet otherPlanet);
+
+	void setCollidedTrue();
+	bool hasCollided();
+
+	//planet movement
 	void moveYUp();
 	void moveYDown();
 	void moveXLeft();
@@ -17,6 +22,7 @@ public:
 	sf::CircleShape getShape();
 	double getMass();
 private:
+	bool collided{ false };
 	double velocity;
 	double mass;
 	sf::CircleShape planet;
